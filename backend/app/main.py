@@ -54,6 +54,8 @@ def api_root() -> dict:
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException) -> JSONResponse:
     logger.warning("HTTP error for %s: %s", request.url.path, exc.detail)
+    if isinstance(exc.detail, dict) and {"code", "message"}.issubset(exc.detail):
+        return JSONResponse(status_code=exc.status_code, content={"error": exc.detail})
     return JSONResponse(
         status_code=exc.status_code,
         content={"detail": exc.detail},

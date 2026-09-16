@@ -2,9 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import io
-import re
 import uuid
-from pathlib import Path
 
 from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, status
 from fastapi.responses import FileResponse
@@ -17,29 +15,11 @@ from app.db.database import get_db
 from app.db.models import Document, DocumentStatus
 from app.schemas.documents import DocumentListResponse, DocumentResponse
 from app.storage.service import StorageError, StorageService
+from app.services.document_validation import ValidationError, validate_upload
 
 router = APIRouter(prefix="/documents", tags=["Documents"])
-_filename_pattern = re.compile(r"^[^/\\]+$")
-
-
 def _storage() -> StorageService:
     return StorageService(get_settings().storage_root)
-
-
-def _validate_filename(filename: str | None) -> str:
-    if not filename or filename in {".", ".."} or not _filename_pattern.fullmatch(filename):
-        raise HTTPException(status_code=400, detail="Invalid filename")
-    return filename
-
-
-def _validate_upload(filename: str, content_type: str | None) -> str:
-    settings = get_settings()
-    extension = Path(filename).suffix.lower()
-    if extension not in settings.allowed_extensions:
-        raise HTTPException(status_code=415, detail="Unsupported file extension")
-    if content_type and content_type not in settings.allowed_mime_types:
-        raise HTTPException(status_code=415, detail="Unsupported MIME type")
-    return extension
 
 
 def _response(document: Document) -> DocumentResponse:
@@ -58,12 +38,13 @@ def _response(document: Document) -> DocumentResponse:
 
 @router.post("", response_model=DocumentResponse, status_code=status.HTTP_201_CREATED)
 async def upload_document(file: UploadFile = File(...), database: Session = Depends(get_db)) -> DocumentResponse:
-    filename = _validate_filename(file.filename)
-    extension = _validate_upload(filename, file.content_type)
-    max_bytes = get_settings().max_upload_size_mb * 1024 * 1024
-    payload = await file.read(max_bytes + 1)
-    if len(payload) > max_bytes:
-        raise HTTPException(status_code=413, detail="File exceeds the maximum upload size")
+    settings = get_settings()
+    payload = await file.read(settings.max_upload_size_mb * 1024 * 1024 + 1)
+    try:
+        extension = validate_upload(file.filename, file.content_type, payload, settings)
+    except ValidationError as exc:
+        raise HTTPException(status_code=exc.status_code, detail={"code": exc.code, "message": exc.message}) from exc
+    filename = file.filename
 
     document_id = str(uuid.uuid4())
     stored_filename = f"{document_id}{extension}"
@@ -94,13 +75,14 @@ async def upload_document(file: UploadFile = File(...), database: Session = Depe
                 storage.delete(storage_path)
             except (FileNotFoundError, StorageError):
                 pass
-        raise HTTPException(status_code=500, detail="Unable to store document") from exc
+        code = "STORAGE_ERROR" if isinstance(exc, StorageError) else "DATABASE_ERROR"
+        raise HTTPException(status_code=500, detail={"code": code, "message": "The document could not be stored."}) from exc
 
 
 @router.get("", response_model=DocumentListResponse)
 def list_documents(
     page: int = Query(default=1, ge=1),
-    page_size: int = Query(default=20, ge=1, le=100),
+    page_size: int = Query(default=20, ge=1, le=get_settings().max_page_size),
     database: Session = Depends(get_db),
 ) -> DocumentListResponse:
     total = database.scalar(select(func.count()).select_from(Document)) or 0

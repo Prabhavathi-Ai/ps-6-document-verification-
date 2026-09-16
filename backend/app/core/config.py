@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     database_url: str = Field(default="sqlite:///./data/veridoc.db")
     storage_root: str = Field(default="./storage")
     max_upload_size_mb: int = Field(default=20, ge=1, le=500)
+    max_page_size: int = Field(default=100, ge=1, le=1000)
     allowed_extensions: list[str] = Field(default_factory=lambda: [".pdf", ".png", ".jpg", ".jpeg"])
     allowed_mime_types: list[str] = Field(
         default_factory=lambda: ["application/pdf", "image/png", "image/jpeg"]
