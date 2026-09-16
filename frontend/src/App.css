@@ -223,6 +223,34 @@ h2 {
 .secondary-action { margin-top: 18px; padding: 10px 15px; color: #246bfe; background: #edf3ff; font-size: 0.78rem; }
 .mobile-nav { display: none; }
 
+.selected-file {
+  max-width: 440px;
+  margin-top: 18px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid #d6e1f3;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.75rem;
+}
+.selected-file > div { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.selected-file strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #2b3c58; }
+.selected-file span { color: #7c8eac; }
+.selected-file button { flex: 0 0 auto; border: 0; border-radius: 7px; padding: 8px 10px; color: white; background: #246bfe; cursor: pointer; font-size: 0.72rem; font-weight: 700; }
+.uploading { color: #246bfe !important; font-weight: 700; }
+.success-message { color: #249b69 !important; font-weight: 700; }
+.upload-error { margin-top: 12px; color: #c04459; font-size: 0.76rem; }
+.document-list { margin-top: 20px; display: grid; gap: 10px; }
+.document-row { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid #e2e8f2; border-radius: 12px; background: white; }
+.document-type { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; color: #246bfe; background: #edf3ff; font-size: 0.62rem; font-weight: 800; }
+.document-info { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.document-info strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #2b3c58; font-size: 0.84rem; }
+.document-info span { color: #8997ab; font-size: 0.72rem; }
+.document-status { color: #249b69; font-size: 0.72rem; font-weight: 700; }
+
 .profile-avatar { flex: 0 0 auto; }
 
 @media (max-width: 900px) {
@@ -242,6 +270,8 @@ h2 {
   .welcome-grid { display: block; margin-top: 34px; padding: 30px 26px 0; }
   .document-art { margin-top: 12px; min-height: 170px; transform: scale(0.8); transform-origin: bottom right; }
   .file-note { display: block; margin: 10px 0 0; }
+  .selected-file { align-items: flex-start; flex-wrap: wrap; }
+  .selected-file button, .uploading, .success-message { margin-left: auto; }
   .recent-section { margin-top: 48px; }
   .mobile-nav { position: fixed; z-index: 5; right: 0; bottom: 0; left: 0; display: flex; justify-content: space-around; padding: 10px 8px 12px; border-top: 1px solid #e5e9f1; background: rgba(255,255,255,0.96); box-shadow: 0 -8px 24px rgba(45, 66, 104, 0.08); }
   .mobile-nav a { display: flex; flex-direction: column; align-items: center; gap: 3px; color: #8a98ad; text-decoration: none; font-size: 0.62rem; font-weight: 600; }
