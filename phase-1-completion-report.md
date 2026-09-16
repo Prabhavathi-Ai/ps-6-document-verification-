@@ -271,3 +271,54 @@ The existing React state handling supports the observed `Checking...` initial st
 The backend default CORS configuration did not include the documented Vite origin on port `5173`. Added `http://localhost:5173` and `http://127.0.0.1:5173` to the default allowed origins, restarted the backend, and reverified the browser connection successfully.
 
 PHASE 1 RUNTIME VERIFIED — AWAITING HUMAN APPROVAL
+
+# User Portal UI Correction
+
+## Files Changed
+
+- `frontend/src/App.jsx`
+- `frontend/src/App.css`
+- `frontend/src/index.css`
+- `phase-1-completion-report.md`
+
+## UI Implemented
+
+Replaced the development/testing shell with a user-facing VeriDoc AI portal:
+
+- branded header with `VeriDoc AI` and `Intelligent Document Verification & Fraud Detection`,
+- dashboard welcome message and product description,
+- `Upload Document` entry point using a real file input without fake processing,
+- truthful `Recent Verifications` empty state with `No documents verified yet.`,
+- desktop navigation for Dashboard, Verify Document, Documents, Verification History, Profile, and Settings,
+- mobile navigation for Home, Verify, Documents, History, and Profile,
+- responsive mobile-first layout with a branded verification workspace illustration.
+
+The backend health request remains available for development/testing, but its result and all technical runtime details are hidden from the user-facing UI.
+
+## Build Result
+
+- Command: `cd frontend; npm run build`
+- Result: PASS. Vite production build completed successfully.
+
+## Tests
+
+- Command: `cd backend; set PYTHONPATH=. && python -m pytest app/tests/test_health.py -q`
+- Result: PASS, `2 passed`, with one existing Starlette/httpx deprecation warning.
+
+## Screenshot and Browser Verification
+
+Verified at `http://localhost:5173/` after starting the frontend and backend:
+
+- desktop screenshot captured of the actual VeriDoc AI portal,
+- mobile viewport verified with Home, Verify, Documents, History, and Profile navigation,
+- visible page includes the required branding, dashboard copy, upload action, and empty state,
+- no visible `Phase 1`, `Backend Connected`, `FastAPI`, `localhost`, API version, environment, or development text,
+- no fake verification records were created.
+
+## Git Commit
+
+The UI correction and this report update were committed together in one focused commit:
+
+- `Convert development shell into VeriDoc AI portal`
+
+USER PORTAL UI CORRECTION COMPLETE — AWAITING HUMAN APPROVAL
