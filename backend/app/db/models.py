@@ -35,6 +35,11 @@ class ProcessingJobType(str, enum.Enum):
     RISK_ANALYSIS = "RISK_ANALYSIS"
 
 
+class PreprocessingStatus(str, enum.Enum):
+    COMPLETED = "COMPLETED"
+    FAILED = "FAILED"
+
+
 class Document(Base):
     __tablename__ = "documents"
 
@@ -72,3 +77,29 @@ class ProcessingJob(Base):
     error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     document: Mapped[Document] = relationship(back_populates="processing_jobs")
+
+
+class PreprocessingPage(Base):
+    __tablename__ = "preprocessing_pages"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    processing_id: Mapped[str] = mapped_column(String(36), unique=True, index=True, default=lambda: str(uuid.uuid4()))
+    document_id: Mapped[int] = mapped_column(ForeignKey("documents.id"), nullable=False, index=True)
+    page_id: Mapped[str] = mapped_column(String(128), nullable=False)
+    page_number: Mapped[int] = mapped_column(Integer, nullable=False)
+    source_width: Mapped[int] = mapped_column(Integer, nullable=False)
+    source_height: Mapped[int] = mapped_column(Integer, nullable=False)
+    processed_width: Mapped[int] = mapped_column(Integer, nullable=False)
+    processed_height: Mapped[int] = mapped_column(Integer, nullable=False)
+    source_format: Mapped[str] = mapped_column(String(16), nullable=False)
+    output_format: Mapped[str] = mapped_column(String(16), nullable=False)
+    scale_factor: Mapped[float] = mapped_column(nullable=False)
+    orientation: Mapped[str] = mapped_column(String(64), nullable=False)
+    color_mode: Mapped[str] = mapped_column(String(16), nullable=False)
+    storage_path: Mapped[str] = mapped_column(String(500), nullable=False)
+    config_fingerprint: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    status: Mapped[PreprocessingStatus] = mapped_column(Enum(PreprocessingStatus), nullable=False)
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+    document: Mapped[Document] = relationship()

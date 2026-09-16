@@ -17,6 +17,12 @@ class Settings(BaseSettings):
     storage_root: str = Field(default="./storage")
     max_upload_size_mb: int = Field(default=20, ge=1, le=500)
     max_page_size: int = Field(default=100, ge=1, le=1000)
+    max_image_width: int = Field(default=10000, ge=1, le=50000)
+    max_image_height: int = Field(default=10000, ge=1, le=50000)
+    max_image_pixels: int = Field(default=50_000_000, ge=1_000_000, le=500_000_000)
+    max_analysis_width: int = Field(default=2400, ge=1, le=10000)
+    max_analysis_height: int = Field(default=2400, ge=1, le=10000)
+    max_pdf_pages: int = Field(default=20, ge=1, le=1000)
     allowed_extensions: list[str] = Field(default_factory=lambda: [".pdf", ".png", ".jpg", ".jpeg"])
     allowed_mime_types: list[str] = Field(
         default_factory=lambda: ["application/pdf", "image/png", "image/jpeg"]

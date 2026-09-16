@@ -36,6 +36,19 @@ class StorageService:
             raise FileNotFoundError(storage_path)
         return target
 
+    def save_derived(self, file_object: BinaryIO, relative_path: str) -> str:
+        target = self._safe_path(self.derived, relative_path)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            with target.open("xb") as destination:
+                while chunk := file_object.read(1024 * 1024):
+                    destination.write(chunk)
+        except OSError as exc:
+            if target.exists():
+                target.unlink(missing_ok=True)
+            raise StorageError("Unable to save derived artifact") from exc
+        return target.relative_to(self.root).as_posix()
+
     def delete(self, storage_path: str) -> None:
         target = self.get(storage_path)
         try:

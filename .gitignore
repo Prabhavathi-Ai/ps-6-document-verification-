@@ -53,6 +53,7 @@ benchmarks/
 *.log
 data/
 /storage/
+backend/storage/
 *.db
 *.sqlite
 *.sqlite3

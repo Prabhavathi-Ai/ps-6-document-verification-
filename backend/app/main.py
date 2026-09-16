@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 
 from app.api.routes.health import router as health_router
 from app.api.routes.documents import router as documents_router
+from app.api.routes.preprocessing import router as preprocessing_router
 from app.core.config import get_settings
 from app.db.database import initialize_database
 from app.core.logging import configure_logging, get_logger
@@ -40,6 +41,7 @@ app.add_middleware(
 
 app.include_router(health_router, prefix=settings.api_prefix)
 app.include_router(documents_router, prefix=settings.api_prefix)
+app.include_router(preprocessing_router, prefix=settings.api_prefix)
 
 
 @app.get(settings.api_prefix)
