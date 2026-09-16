@@ -24,7 +24,7 @@ python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```powershell
 cd "C:\Users\ELCOT\Downloads\ps-6-document-verification-\backend"
 set PYTHONPATH=.
-python -m pytest app/tests/test_health.py -q
+python -m pytest app/tests -q
 ```
 
 ## Frontend
@@ -57,6 +57,24 @@ This initial phase does not yet include a dedicated frontend unit test runner; t
 ## Environment variables
 
 Create a local .env file in the repository root using the values from .env.example.
+
+Phase 2 database and storage settings include:
+
+- `DATABASE_URL=sqlite:///./data/veridoc.db`
+- `STORAGE_ROOT=./storage`
+- `MAX_UPLOAD_SIZE_MB=20`
+
+The application creates the SQLite parent directory, database tables, and local storage directories when needed. Database files and original files are excluded from Git.
+
+## Document API
+
+- `POST /api/v1/documents` accepts PDF, PNG, JPG, and JPEG uploads.
+- `GET /api/v1/documents?page=1&page_size=20` lists stored metadata.
+- `GET /api/v1/documents/{document_id}` returns metadata for one document.
+- `GET /api/v1/documents/{document_id}/file` retrieves the preserved original.
+- `GET /docs` exposes the generated Swagger UI.
+
+Uploaded documents are stored with generated internal filenames under `storage/originals/`. The original filename remains metadata only. Phase 2 does not process uploaded content.
 
 ## Notes
 

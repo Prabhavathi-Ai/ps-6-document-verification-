@@ -32,6 +32,11 @@ datasets/benchmark/
 reports/
 benchmarks/
 *.log
+data/
+storage/
+*.db
+*.sqlite
+*.sqlite3
 
 # Build outputs
 build/

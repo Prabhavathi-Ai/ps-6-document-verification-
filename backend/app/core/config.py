@@ -13,6 +13,13 @@ class Settings(BaseSettings):
     api_port: int = Field(default=8000)
     api_prefix: str = Field(default="/api/v1")
     log_level: str = Field(default="INFO")
+    database_url: str = Field(default="sqlite:///./data/veridoc.db")
+    storage_root: str = Field(default="./storage")
+    max_upload_size_mb: int = Field(default=20, ge=1, le=500)
+    allowed_extensions: list[str] = Field(default_factory=lambda: [".pdf", ".png", ".jpg", ".jpeg"])
+    allowed_mime_types: list[str] = Field(
+        default_factory=lambda: ["application/pdf", "image/png", "image/jpeg"]
+    )
     cors_origins: list[str] = Field(
         default_factory=lambda: [
             "http://localhost:3000",

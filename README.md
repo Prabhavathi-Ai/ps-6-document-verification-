@@ -2,7 +2,7 @@
 
 ## Project status
 
-This repository is now in Phase 1 application-foundation mode. The project has a working FastAPI backend foundation and a React frontend shell with a backend health-check connection, but no document-processing services, OCR, ELA, duplicate detection, or scoring logic has been implemented yet.
+This repository is now in Phase 2 data-foundation mode. The project has a working FastAPI backend, a React user portal, SQLite metadata persistence, local original-file storage, and document upload/retrieval APIs. No OCR, ELA, duplicate detection, fraud scoring, or document-analysis services have been implemented.
 
 ## Objective
 
@@ -17,19 +17,18 @@ Build an AI-assisted document verification and fraud-detection platform that can
 - support both single-document and bulk processing,
 - measure performance on benchmark datasets.
 
-## Phase 1 scope
+## Phase 2 scope
 
-This phase establishes the application foundation only:
+This phase establishes the database, metadata, and original-file storage foundation:
 
-- FastAPI backend skeleton,
-- configuration and logging,
-- health and API info endpoints,
-- React frontend shell,
-- responsive layout foundation,
-- backend health API connection,
-- project setup and documentation.
+- SQLAlchemy relational models for documents and future processing jobs,
+- environment-driven SQLite database configuration,
+- local filesystem storage abstraction,
+- safe document upload, validation, hashing, and retrieval APIs,
+- responsive upload and documents UI integration,
+- database, storage, API, and end-to-end tests.
 
-No OCR, ELA, duplicate detection, fraud scoring, Qdrant, or dataset-processing logic is included in this phase.
+No OCR, PaddleOCR, ELA, duplicate detection, pHash, Qdrant, embeddings, fraud scoring, tamper detection, batch processing, or AI document analysis is included in this phase.
 
 ## Repository structure
 
@@ -63,7 +62,7 @@ From the repository root:
 Backend:
 
 - cd backend
-- set PYTHONPATH=. && python -m pytest app/tests/test_health.py -q
+- set PYTHONPATH=. && python -m pytest app/tests -q
 
 Frontend:
 
