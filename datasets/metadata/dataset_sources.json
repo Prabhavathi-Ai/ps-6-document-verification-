@@ -1,0 +1,81 @@
+{
+  "sources": [
+    {
+      "name": "AIForge-Doc v2",
+      "source_url": null,
+      "license": "NOT VERIFIED",
+      "description": "Candidate public document forensics source identified during planning.",
+      "download_status": "NOT AVAILABLE",
+      "local_path": "datasets/public/aiforge_doc/",
+      "contains_ground_truth": "UNKNOWN",
+      "contains_tamper_masks": "UNKNOWN",
+      "notes": "No download was attempted without verified access and licensing information."
+    },
+    {
+      "name": "Find it Again!",
+      "source_url": null,
+      "license": "NOT VERIFIED",
+      "description": "Candidate duplicate/retrieval benchmark identified during planning.",
+      "download_status": "NOT AVAILABLE",
+      "local_path": "datasets/public/find_it_again/",
+      "contains_ground_truth": "UNKNOWN",
+      "contains_tamper_masks": "UNKNOWN",
+      "notes": "No local files are claimed; access and license require verification."
+    },
+    {
+      "name": "DocTamper",
+      "source_url": null,
+      "license": "ACCESS RESTRICTED / NOT VERIFIED",
+      "description": "Candidate document tampering source identified during planning.",
+      "download_status": "ACCESS RESTRICTED",
+      "local_path": "datasets/public/doctamper/",
+      "contains_ground_truth": "UNKNOWN",
+      "contains_tamper_masks": "UNKNOWN",
+      "notes": "No restrictions were bypassed and no files were downloaded."
+    },
+    {
+      "name": "CORD",
+      "source_url": null,
+      "license": "NOT VERIFIED",
+      "description": "Candidate public receipt understanding source identified during planning.",
+      "download_status": "NOT AVAILABLE",
+      "local_path": "datasets/public/cord/",
+      "contains_ground_truth": "UNKNOWN",
+      "contains_tamper_masks": "UNKNOWN",
+      "notes": "Source URL and license were not verified in this phase."
+    },
+    {
+      "name": "SROIE",
+      "source_url": null,
+      "license": "NOT VERIFIED",
+      "description": "Candidate public receipt source identified during planning.",
+      "download_status": "NOT AVAILABLE",
+      "local_path": "datasets/public/sroie/",
+      "contains_ground_truth": "UNKNOWN",
+      "contains_tamper_masks": "UNKNOWN",
+      "notes": "Source URL and license were not verified in this phase."
+    },
+    {
+      "name": "MIDV-2020",
+      "source_url": null,
+      "license": "NOT VERIFIED",
+      "description": "Candidate simulated identity-document source identified during planning.",
+      "download_status": "NOT AVAILABLE",
+      "local_path": "datasets/public/midv_2020/",
+      "contains_ground_truth": "UNKNOWN",
+      "contains_tamper_masks": "UNKNOWN",
+      "notes": "No real identity documents were downloaded or added."
+    },
+    {
+      "name": "VeriDoc synthetic benchmark",
+      "source_url": null,
+      "license": "PROJECT-GENERATED",
+      "description": "Deterministic synthetic document families generated locally for benchmark plumbing tests.",
+      "download_status": "AVAILABLE",
+      "local_path": "datasets/synthetic/",
+      "contains_ground_truth": true,
+      "contains_tamper_masks": true,
+      "notes": "Synthetic transformations are not representative proof of real-world fraud behavior."
+    }
+  ]
+}

@@ -27,6 +27,25 @@ datasets/synthetic/
 datasets/benchmark/
 !datasets/README.md
 !datasets/**/.gitkeep
+!datasets/public/
+!datasets/public/**/
+!datasets/public/**/README.md
+!datasets/synthetic/
+!datasets/synthetic/**/
+!datasets/synthetic/originals/SYN-G001-ORIGINAL.png
+!datasets/synthetic/duplicates/SYN-G001-EXACT.png
+!datasets/synthetic/duplicates/SYN-G001-NEAR.jpg
+!datasets/synthetic/tampered/SYN-G001-TAMPERED.png
+!datasets/synthetic/tampered/SYN-G001-MIXED.png
+!datasets/benchmark/
+!datasets/benchmark/**/
+!datasets/benchmark/genuine/SYN-G001-ORIGINAL.png
+!datasets/benchmark/genuine/SYN-G002-ORIGINAL.png
+!datasets/benchmark/duplicate/SYN-G001-EXACT.png
+!datasets/benchmark/near_duplicate/SYN-G001-NEAR.jpg
+!datasets/benchmark/tampered/images/SYN-G001-TAMPERED.png
+!datasets/benchmark/tampered/masks/SYN-G001-TAMPERED.pgm
+!datasets/benchmark/mixed/SYN-G001-MIXED.png
 
 # Generated artifacts
 reports/
