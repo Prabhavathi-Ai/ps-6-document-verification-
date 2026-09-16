@@ -56,6 +56,20 @@ OCR and extraction are deferred to a later approved phase.
 ## Phase 4
 
 Goal:
+- harden document ingestion and upload validation.
+
+Expected work:
+- content signatures and MIME consistency,
+- image readability and malformed-file rejection,
+- secure filename and immutable original handling,
+- structured upload errors and failure cleanup,
+- byte-level integrity and ingestion security tests.
+
+OCR and extraction remain deferred to a later approved phase.
+
+## Phase 5
+
+Goal:
 - implement OCR and extraction workflow.
 
 Expected work:
@@ -65,7 +79,7 @@ Expected work:
 - output normalization,
 - extraction validation and review UI.
 
-## Phase 5
+## Phase 6
 
 Goal:
 - implement validation and duplicate detection.
@@ -76,7 +90,7 @@ Expected work:
 - similarity scoring,
 - duplicate category assignment.
 
-## Phase 6
+## Phase 7
 
 Goal:
 - implement forensic analysis and explainability.
@@ -88,7 +102,7 @@ Expected work:
 - overlay rendering,
 - evidence explanations and review views.
 
-## Phase 7
+## Phase 8
 
 Goal:
 - integrate risk scoring and final dashboard.
@@ -100,7 +114,7 @@ Expected work:
 - bulk review workflows,
 - reporting and export.
 
-## Phase 8
+## Phase 9
 
 Goal:
 - dataset benchmarking and evaluation.
@@ -112,7 +126,7 @@ Expected work:
 - visual comparison of evidence signals,
 - threshold tuning and validation.
 
-## Phase 9
+## Phase 10
 
 Goal:
 - system hardening and deployment readiness.

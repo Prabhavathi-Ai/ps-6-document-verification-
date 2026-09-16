@@ -2,7 +2,7 @@
 
 ## Project status
 
-This repository is now in Phase 3 dataset-and-benchmark setup mode. The project has the approved Phase 2 FastAPI/React upload foundation plus a reproducible, synthetic-safe dataset registry, ground-truth manifest, generator, validator, and inventory tooling. No OCR, ELA, duplicate detection, fraud scoring, or document-analysis services have been implemented.
+This repository is now in Phase 4 document-ingestion hardening mode. The project has the approved Phase 2 upload foundation, Phase 3 synthetic benchmark tooling, and a reusable validation boundary for signatures, MIME/content consistency, image readability, filename safety, size limits, hashing, and failure cleanup. No OCR, ELA, duplicate detection, fraud scoring, or document-analysis services have been implemented.
 
 ## Objective
 
@@ -17,17 +17,18 @@ Build an AI-assisted document verification and fraud-detection platform that can
 - support both single-document and bulk processing,
 - measure performance on benchmark datasets.
 
-## Phase 3 scope
+## Phase 4 scope
 
-This phase establishes a legally safer and reproducible benchmark input foundation:
+This phase hardens the upload boundary without adding processing:
 
-- honest public-dataset source registry,
-- synthetic genuine, duplicate, near-duplicate, tampered, and mixed cases,
-- ground-truth CSV with independent duplicate and tampering fields,
-- deterministic seed-controlled generation,
-- source-group split leakage prevention,
-- dataset validation and inventory scripts,
-- metadata, mask, privacy, and licensing documentation.
+- extension, MIME, signature, and image-readability validation,
+- safe filename and path traversal rejection,
+- configurable upload and pagination limits,
+- structured safe upload errors,
+- immutable exclusive original storage,
+- database/storage failure cleanup,
+- byte-level SHA-256 integrity tests,
+- accessible upload loading, success, and error states.
 
 No OCR, PaddleOCR, field extraction, logical validation, duplicate detection algorithms, pHash, embeddings, Qdrant, ELA, pixel/noise analysis, fraud scoring, risk scoring, heatmaps, batch processing, or advanced document verification is included in this phase.
 

@@ -91,10 +91,13 @@ Each stage should emit structured artifacts and status metadata so tasks can be 
 
 - accept document image files,
 - validate format and size,
+- validate filename, declared MIME, file signature, and image readability before persistence,
 - create document metadata records,
 - persist original files in object storage,
 - generate processing job records,
 - route into preprocessing pipeline.
+
+Phase 4 ingestion hardening keeps the original upload immutable. Generated storage names are resolved beneath the originals root, writes are exclusive, and a database failure rolls back metadata and removes the new original. SHA-256 is calculated from the exact uploaded bytes. Validation failures do not create document records.
 
 ### 4.5 Preprocessing
 

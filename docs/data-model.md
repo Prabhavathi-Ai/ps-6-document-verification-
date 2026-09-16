@@ -338,6 +338,8 @@ DatasetDocument
 
 ## 4. Timestamps and auditability
 
+The Phase 4 ingestion contract keeps `Document.status` at `UPLOADED` after accepted storage. Invalid input never creates a successful document record. The stored `sha256_hash` represents the original uploaded bytes, while the storage key remains internal and is not exposed by public metadata responses.
+
 Every major entity should record:
 - created_at
 - updated_at
