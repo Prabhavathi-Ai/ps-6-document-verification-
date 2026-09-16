@@ -2,7 +2,7 @@
 
 ## Project status
 
-This repository is currently in Phase 0 audit mode. No application implementation, frontend, backend, API, or dataset code was present in the checked-out working tree, so the project is being defined from a clean architectural baseline rather than replacing an existing implementation.
+This repository is now in Phase 1 application-foundation mode. The project has a working FastAPI backend foundation and a React frontend shell with a backend health-check connection, but no document-processing services, OCR, ELA, duplicate detection, or scoring logic has been implemented yet.
 
 ## Objective
 
@@ -17,23 +17,59 @@ Build an AI-assisted document verification and fraud-detection platform that can
 - support both single-document and bulk processing,
 - measure performance on benchmark datasets.
 
-## Phase 0 scope
+## Phase 1 scope
 
-The current work is limited to repository audit, architecture definition, data model planning, dataset and benchmark strategy, forensic terminology, development roadmap, and verification of the project baseline. No production implementation is started in this phase.
+This phase establishes the application foundation only:
 
-## Current repository findings
+- FastAPI backend skeleton,
+- configuration and logging,
+- health and API info endpoints,
+- React frontend shell,
+- responsive layout foundation,
+- backend health API connection,
+- project setup and documentation.
 
-- automation baseline is not yet established,
-- no frontend application files exist in the working tree,
-- no backend service or Python project files exist in the working tree,
-- no package manifests or dependency files are present,
-- no database configuration or API routes are present,
-- no tests are present yet,
-- no dataset assets are checked into the repository.
+No OCR, ELA, duplicate detection, fraud scoring, Qdrant, or dataset-processing logic is included in this phase.
 
-## Target technology direction
+## Repository structure
 
-The project is intended to follow a Python FastAPI backend with a React frontend, plus OpenCV and OCR tooling for document analysis. Qdrant and a relational metadata store are intended for duplicate-search and metadata tracking, while uploaded files and derived artifacts will be stored in object/file storage on the deployment platform.
+- backend/
+- frontend/
+- docs/
+- datasets/
+- benchmarks/
+- reports/
+
+## Backend setup
+
+From the repository root:
+
+1. cd backend
+2. python -m venv .venv
+3. .\.venv\Scripts\Activate.ps1
+4. python -m pip install -r requirements.txt
+5. set PYTHONPATH=. && python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+## Frontend setup
+
+From the repository root:
+
+1. cd frontend
+2. npm install
+3. npm run dev -- --host 0.0.0.0
+
+## Test commands
+
+Backend:
+
+- cd backend
+- set PYTHONPATH=. && python -m pytest app/tests/test_health.py -q
+
+Frontend:
+
+- cd frontend
+- npm run build
+- npm run test -- --run
 
 ## Documentation set
 
@@ -43,20 +79,10 @@ The project is intended to follow a Python FastAPI backend with a React frontend
 - [docs/benchmark-strategy.md](docs/benchmark-strategy.md)
 - [docs/development-roadmap.md](docs/development-roadmap.md)
 - [docs/forensic-analysis-principles.md](docs/forensic-analysis-principles.md)
+- [docs/development-setup.md](docs/development-setup.md)
 
-## Repository structure target
+## Phase 1 completion gate
 
-- backend/
-- frontend/
-- datasets/
-- docs/
-- scripts/
-- tests/
-- benchmarks/
-- reports/
+Phase 1 is complete only after the backend and frontend foundations are both verified to run, the health API is tested, the build and test commands are documented, and the human stakeholder approves the foundation before Phase 2 begins.
 
-## Phase 0 completion gate
-
-Phase 0 is considered complete only after the repository has been audited, the architecture and benchmarks are documented, the data model is defined, and the findings are approved by the human stakeholder before moving to Phase 1.
-
-"PHASE 0 COMPLETE — AWAITING HUMAN APPROVAL"
+"PHASE 1 COMPLETE — AWAITING HUMAN APPROVAL"
