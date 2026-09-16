@@ -215,3 +215,59 @@ The recommended Phase 2 focus is the ingestion and preprocessing foundation:
 - storage abstraction.
 
 "PHASE 1 COMPLETE — AWAITING HUMAN APPROVAL"
+
+# Runtime Verification
+
+## Backend URL
+
+- URL: `http://localhost:8000`
+- Startup command: `python -m uvicorn app.main:app --host 0.0.0.0 --port 8000`
+- Result: Uvicorn started successfully and reported application startup complete.
+
+## Backend Health Response
+
+- Request: `GET http://localhost:8000/api/v1/health`
+- HTTP status: `200 OK`
+- Response body:
+
+```json
+{"status":"ok","service":"veridoc-api","version":"0.1.0","environment":"development"}
+```
+
+## Frontend URL
+
+- URL: `http://localhost:5173/`
+- Startup command: `npm run dev -- --host 0.0.0.0`
+- Result: Vite `v8.3.0` started successfully and reported the local URL with no compile errors.
+
+## Browser Rendering Result
+
+The browser rendered the Phase 1 application shell and visibly displayed:
+
+- VeriDoc AI branding,
+- the application foundation description,
+- backend status information,
+- navigation links and frontend/backend/future foundation sections.
+
+## Frontend/Backend Connection Result
+
+The browser made a real request to `http://localhost:8000/api/v1/health` and received HTTP `200` with the expected JSON. The UI displayed `Backend Connected` and showed service `veridoc-api`, environment `development`, and version `0.1.0`.
+
+The existing React state handling supports the observed `Checking...` initial state and changes to `Backend Connected` on a successful response or `Backend Unavailable` when the request fails. An unavailable state was observed during the initial browser check when the API response was blocked by the incorrect CORS configuration.
+
+## Build Result
+
+- Command: `cd frontend; npm run build`
+- Result: PASS. Vite completed the production build successfully in `315ms`.
+
+## Test Result
+
+- Command: `cd backend; set PYTHONPATH=. && python -m pytest app/tests/test_health.py -q`
+- Result: PASS, `2 passed`.
+- Note: pytest emitted one existing Starlette/httpx deprecation warning.
+
+## Fixes Made
+
+The backend default CORS configuration did not include the documented Vite origin on port `5173`. Added `http://localhost:5173` and `http://127.0.0.1:5173` to the default allowed origins, restarted the backend, and reverified the browser connection successfully.
+
+PHASE 1 RUNTIME VERIFIED — AWAITING HUMAN APPROVAL

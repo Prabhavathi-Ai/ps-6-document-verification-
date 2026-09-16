@@ -13,7 +13,14 @@ class Settings(BaseSettings):
     api_port: int = Field(default=8000)
     api_prefix: str = Field(default="/api/v1")
     log_level: str = Field(default="INFO")
-    cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000", "http://127.0.0.1:3000"])
+    cors_origins: list[str] = Field(
+        default_factory=lambda: [
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+        ]
+    )
 
     model_config = SettingsConfigDict(
         env_file=".env",
