@@ -108,6 +108,8 @@ Phase 4 ingestion hardening keeps the original upload immutable. Generated stora
 - generate intermediate images for OCR and forensic analysis,
 - record preprocessing metadata and tolerances.
 
+Phase 5 implements the local synchronous boundary for PNG/JPEG decoding and PDF page rendering. It applies EXIF orientation when available, converts derived pages to explicit RGB PNG, preserves aspect ratio while downscaling to configured analysis bounds, and records page dimensions, scale, orientation, color mode, and derived storage metadata. It never modifies the original file and does not perform OCR or fraud analysis.
+
 ### 4.6 OCR
 
 - run OCR on preprocessed images,

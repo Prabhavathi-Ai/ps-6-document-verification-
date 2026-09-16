@@ -72,3 +72,5 @@ All final outputs should be explainable in human-readable form. Each risk indica
 ## 7. Phase 0 outcome
 
 This document establishes the language and evidence boundaries that the system must maintain in all phases.
+
+Phase 5 preservation rule: preprocessing outputs are derived analysis representations. The original uploaded file and its stored SHA-256 remain the authoritative evidence source; preprocessing does not determine whether a document is authentic, duplicated, or fraudulent.

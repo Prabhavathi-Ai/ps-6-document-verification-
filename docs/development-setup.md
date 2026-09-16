@@ -65,6 +65,15 @@ Phase 2 database and storage settings include:
 - `MAX_UPLOAD_SIZE_MB=20`
 - `MAX_PAGE_SIZE=100`
 
+Phase 5 preprocessing settings include:
+
+- `MAX_IMAGE_WIDTH=10000`
+- `MAX_IMAGE_HEIGHT=10000`
+- `MAX_IMAGE_PIXELS=50000000`
+- `MAX_ANALYSIS_WIDTH=2400`
+- `MAX_ANALYSIS_HEIGHT=2400`
+- `MAX_PDF_PAGES=20`
+
 The application creates the SQLite parent directory, database tables, and local storage directories when needed. Database files and original files are excluded from Git.
 
 ## Document API
@@ -84,6 +93,12 @@ The upload boundary validates filename safety, extension, declared MIME type, fi
 Originals are written exclusively under `storage/originals/` using generated UUID filenames. Storage writes use exclusive creation and clean up partial files on failure. Database failures roll back and remove a newly stored original. No upload is marked successful unless both storage and metadata persistence succeed.
 
 Upload failures use stable error codes such as `EMPTY_FILE`, `FILE_TOO_LARGE`, `UNSUPPORTED_FILE_TYPE`, `INVALID_FILE_CONTENT`, `MIME_TYPE_MISMATCH`, `INVALID_FILENAME`, `STORAGE_ERROR`, and `DATABASE_ERROR`. The API never returns internal filesystem paths or stack traces.
+
+## Phase 5 preprocessing
+
+- `POST /api/v1/documents/{document_id}/preprocess` synchronously prepares bounded RGB PNG page artifacts.
+
+PNG/JPEG inputs become one derived page. PDFs are rendered in source page order up to `MAX_PDF_PAGES`. Derived files are written below `storage/derived/{document_id}/pages/`; originals remain authoritative and immutable. Repeating the same request with the same preprocessing configuration reuses existing valid pages.
 
 ## Notes
 

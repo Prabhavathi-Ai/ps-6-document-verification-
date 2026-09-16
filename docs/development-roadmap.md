@@ -70,6 +70,20 @@ OCR and extraction remain deferred to a later approved phase.
 ## Phase 5
 
 Goal:
+- implement deterministic image preprocessing.
+
+Expected work:
+- bounded image decoding and PDF rendering,
+- EXIF orientation handling,
+- RGB PNG analysis representations,
+- aspect-ratio-preserving resolution normalization,
+- derived page metadata and original-integrity tests.
+
+OCR and extraction remain deferred to a later approved phase.
+
+## Phase 6
+
+Goal:
 - implement OCR and extraction workflow.
 
 Expected work:
@@ -79,7 +93,7 @@ Expected work:
 - output normalization,
 - extraction validation and review UI.
 
-## Phase 6
+## Phase 7
 
 Goal:
 - implement validation and duplicate detection.
@@ -90,7 +104,7 @@ Expected work:
 - similarity scoring,
 - duplicate category assignment.
 
-## Phase 7
+## Phase 8
 
 Goal:
 - implement forensic analysis and explainability.
@@ -102,7 +116,7 @@ Expected work:
 - overlay rendering,
 - evidence explanations and review views.
 
-## Phase 8
+## Phase 9
 
 Goal:
 - integrate risk scoring and final dashboard.
@@ -114,7 +128,7 @@ Expected work:
 - bulk review workflows,
 - reporting and export.
 
-## Phase 9
+## Phase 10
 
 Goal:
 - dataset benchmarking and evaluation.
@@ -126,7 +140,7 @@ Expected work:
 - visual comparison of evidence signals,
 - threshold tuning and validation.
 
-## Phase 10
+## Phase 11
 
 Goal:
 - system hardening and deployment readiness.

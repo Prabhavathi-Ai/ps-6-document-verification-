@@ -75,6 +75,10 @@ Status:
 Error handling:
 - record stage-level failure, retry count, and delayed retries.
 
+### PreprocessingPage
+
+Phase 5 stores one row per derived analysis page with a generated processing ID, document ID, page ID/number, source and processed dimensions, formats, scale factor, orientation, color mode, derived storage key, configuration fingerprint, status, error message, and creation timestamp. It is separate from original document metadata and supports multi-page PDFs without adding OCR fields.
+
 ### OCRResult
 
 Purpose:

@@ -2,7 +2,7 @@
 
 ## Project status
 
-This repository is now in Phase 4 document-ingestion hardening mode. The project has the approved Phase 2 upload foundation, Phase 3 synthetic benchmark tooling, and a reusable validation boundary for signatures, MIME/content consistency, image readability, filename safety, size limits, hashing, and failure cleanup. No OCR, ELA, duplicate detection, fraud scoring, or document-analysis services have been implemented.
+This repository is now in Phase 5 image-preprocessing mode. The project has the approved ingestion/storage foundation, synthetic benchmark tooling, and a deterministic local preprocessing service that writes analysis-ready derived PNG pages while preserving originals. No OCR, ELA, duplicate detection, fraud scoring, or document-analysis services have been implemented.
 
 ## Objective
 
@@ -17,18 +17,18 @@ Build an AI-assisted document verification and fraud-detection platform that can
 - support both single-document and bulk processing,
 - measure performance on benchmark datasets.
 
-## Phase 4 scope
+## Phase 5 scope
 
-This phase hardens the upload boundary without adding processing:
+This phase adds deterministic preprocessing without changing evidence originals:
 
-- extension, MIME, signature, and image-readability validation,
-- safe filename and path traversal rejection,
-- configurable upload and pagination limits,
-- structured safe upload errors,
-- immutable exclusive original storage,
-- database/storage failure cleanup,
-- byte-level SHA-256 integrity tests,
-- accessible upload loading, success, and error states.
+- PNG/JPEG decoding and PDF page rendering,
+- bounded image dimensions, pixel counts, and PDF page counts,
+- EXIF orientation handling where metadata is present,
+- explicit RGB PNG analysis representations,
+- aspect-ratio-preserving resolution normalization,
+- page-level preprocessing metadata and derived storage,
+- original SHA-256/byte integrity verification,
+- idempotent reuse for the same preprocessing configuration.
 
 No OCR, PaddleOCR, field extraction, logical validation, duplicate detection algorithms, pHash, embeddings, Qdrant, ELA, pixel/noise analysis, fraud scoring, risk scoring, heatmaps, batch processing, or advanced document verification is included in this phase.
 
