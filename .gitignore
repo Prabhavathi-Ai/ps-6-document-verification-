@@ -52,7 +52,7 @@ reports/
 benchmarks/
 *.log
 data/
-storage/
+/storage/
 *.db
 *.sqlite
 *.sqlite3
