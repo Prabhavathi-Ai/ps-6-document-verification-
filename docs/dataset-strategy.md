@@ -233,6 +233,34 @@ datasets/
 - Provide manifest files describing origin, version, and download process.
 - Record licensing and retrieval instructions.
 
-## 7. Phase 0 status
+## 7. Phase 3 acquisition status
 
-This is a planning document only. No large datasets are downloaded or ingested in Phase 0.
+No external public dataset was downloaded in Phase 3. The source registry in `datasets/metadata/dataset_sources.json` records public candidates as `NOT AVAILABLE`, `ACCESS RESTRICTED`, or `NOT VERIFIED` when a verified URL/license/access path was not available. No access restriction was bypassed and no license was invented.
+
+The available local source is the project-generated synthetic benchmark under `datasets/synthetic/` and `datasets/benchmark/`. It contains no real personal documents.
+
+## 8. Ground truth and classes
+
+`datasets/metadata/ground_truth.csv` separates the benchmark `class` from integrity fields. A duplicate relationship is represented by `duplicate_of`, `is_exact_duplicate`, or `is_near_duplicate`; it does not imply tampering. `is_tampered` is an independent ground-truth field. Tampered records may reference a mask and `tamper_bbox`.
+
+Each row has a `source_group_id`. All variants derived from one base document stay in one split to prevent paired-document leakage.
+
+## 9. Synthetic benchmark limitations
+
+The deterministic seed-42 benchmark is plumbing and metadata validation data, not a fraud-detection claim. Generated edits may be cleaner than real manipulation, transformations do not cover real compression/noise/layout variation, and results on synthetic files cannot automatically generalize to production documents.
+
+## 10. Validation and inventory
+
+Run from the repository root:
+
+```powershell
+python scripts/generate_synthetic_benchmark.py --seed 42
+python scripts/validate_dataset.py
+python scripts/dataset_inventory.py
+```
+
+The validator checks local file existence, recorded hashes, image readability, unique IDs, allowed classes/booleans, parent references, masks, and split leakage. The inventory reads the CSV and reports measured counts without hard-coded totals.
+
+## 11. Privacy and acquisition policy
+
+Only synthetic or explicitly permitted public data may be added. Real Aadhaar, passport, driver's license, bank, certificate, or other sensitive personal documents are excluded. Large public datasets remain outside Git and must have verified access and licensing before acquisition.

@@ -141,6 +141,36 @@ The benchmark should align each document type with the most relevant dataset:
 - do not hide missing or failed benchmark runs,
 - preserve ground-truth labels and masks with each reported result.
 
-## 9. Phase 0 outcome
+## 9. Phase 3 benchmark preparation
 
-This document defines the benchmark framework, not the final thresholds. Thresholds will eventually be learned or selected empirically from validation data.
+The Phase 3 metadata contract is `datasets/metadata/ground_truth.csv`. It includes genuine, exact duplicate, near duplicate, tampered, and mixed classes while keeping duplicate relationship fields separate from `is_tampered`.
+
+The deterministic local fixture uses seed `42` and currently contains:
+
+- 2 genuine records,
+- 1 exact duplicate,
+- 1 near duplicate,
+- 1 tampered record with a mask and bounding box,
+- 1 mixed tampered-family record,
+- 6 records total.
+
+These are inventory counts only. No OCR, similarity, ELA, or fraud metrics are calculated.
+
+## 10. Leakage prevention
+
+Related original, duplicate, near-duplicate, and tampered variants share a `source_group_id`. The validator rejects any group whose records span train, validation, and test splits. The generated family stays in the test split, while an independent genuine source is in validation. This is intentionally conservative while the fixture is small.
+
+## 11. Reproducible tooling
+
+```powershell
+python scripts/generate_synthetic_benchmark.py --seed 42
+python scripts/validate_dataset.py
+python scripts/dataset_inventory.py
+python -m pytest scripts/test_dataset_framework.py -q
+```
+
+The generator creates exact byte copies, a resized/recompressed near duplicate, a controlled image-region edit, and a corresponding grayscale mask. Synthetic transformations are benchmark controls, not evidence that future detection methods generalize to real fraud.
+
+## 12. Phase 3 limitations
+
+External sources remain unavailable or unverified, so this phase reports no downloaded public-dataset counts. The synthetic fixture is intentionally small, contains no real sensitive documents, and cannot establish model quality or production performance. Thresholds and all detection metrics remain future work.

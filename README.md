@@ -2,7 +2,7 @@
 
 ## Project status
 
-This repository is now in Phase 2 data-foundation mode. The project has a working FastAPI backend, a React user portal, SQLite metadata persistence, local original-file storage, and document upload/retrieval APIs. No OCR, ELA, duplicate detection, fraud scoring, or document-analysis services have been implemented.
+This repository is now in Phase 3 dataset-and-benchmark setup mode. The project has the approved Phase 2 FastAPI/React upload foundation plus a reproducible, synthetic-safe dataset registry, ground-truth manifest, generator, validator, and inventory tooling. No OCR, ELA, duplicate detection, fraud scoring, or document-analysis services have been implemented.
 
 ## Objective
 
@@ -17,18 +17,19 @@ Build an AI-assisted document verification and fraud-detection platform that can
 - support both single-document and bulk processing,
 - measure performance on benchmark datasets.
 
-## Phase 2 scope
+## Phase 3 scope
 
-This phase establishes the database, metadata, and original-file storage foundation:
+This phase establishes a legally safer and reproducible benchmark input foundation:
 
-- SQLAlchemy relational models for documents and future processing jobs,
-- environment-driven SQLite database configuration,
-- local filesystem storage abstraction,
-- safe document upload, validation, hashing, and retrieval APIs,
-- responsive upload and documents UI integration,
-- database, storage, API, and end-to-end tests.
+- honest public-dataset source registry,
+- synthetic genuine, duplicate, near-duplicate, tampered, and mixed cases,
+- ground-truth CSV with independent duplicate and tampering fields,
+- deterministic seed-controlled generation,
+- source-group split leakage prevention,
+- dataset validation and inventory scripts,
+- metadata, mask, privacy, and licensing documentation.
 
-No OCR, PaddleOCR, ELA, duplicate detection, pHash, Qdrant, embeddings, fraud scoring, tamper detection, batch processing, or AI document analysis is included in this phase.
+No OCR, PaddleOCR, field extraction, logical validation, duplicate detection algorithms, pHash, embeddings, Qdrant, ELA, pixel/noise analysis, fraud scoring, risk scoring, heatmaps, batch processing, or advanced document verification is included in this phase.
 
 ## Repository structure
 
@@ -63,6 +64,13 @@ Backend:
 
 - cd backend
 - set PYTHONPATH=. && python -m pytest app/tests -q
+
+Dataset framework:
+
+- python scripts/generate_synthetic_benchmark.py --seed 42
+- python scripts/validate_dataset.py
+- python scripts/dataset_inventory.py
+- python -m pytest scripts/test_dataset_framework.py -q
 
 Frontend:
 

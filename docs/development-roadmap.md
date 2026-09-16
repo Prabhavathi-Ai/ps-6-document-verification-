@@ -42,6 +42,20 @@ Expected work:
 ## Phase 3
 
 Goal:
+- establish reproducible dataset acquisition and benchmark setup.
+
+Expected work:
+- dataset source registry and honest access/licensing status,
+- synthetic benchmark generation,
+- ground-truth metadata and mask relationships,
+- leakage-safe source-group splits,
+- dataset validation and inventory tooling.
+
+OCR and extraction are deferred to a later approved phase.
+
+## Phase 4
+
+Goal:
 - implement OCR and extraction workflow.
 
 Expected work:
@@ -51,7 +65,7 @@ Expected work:
 - output normalization,
 - extraction validation and review UI.
 
-## Phase 4
+## Phase 5
 
 Goal:
 - implement validation and duplicate detection.
@@ -62,7 +76,7 @@ Expected work:
 - similarity scoring,
 - duplicate category assignment.
 
-## Phase 5
+## Phase 6
 
 Goal:
 - implement forensic analysis and explainability.
@@ -74,7 +88,7 @@ Expected work:
 - overlay rendering,
 - evidence explanations and review views.
 
-## Phase 6
+## Phase 7
 
 Goal:
 - integrate risk scoring and final dashboard.
@@ -86,7 +100,7 @@ Expected work:
 - bulk review workflows,
 - reporting and export.
 
-## Phase 7
+## Phase 8
 
 Goal:
 - dataset benchmarking and evaluation.
@@ -98,7 +112,7 @@ Expected work:
 - visual comparison of evidence signals,
 - threshold tuning and validation.
 
-## Phase 8
+## Phase 9
 
 Goal:
 - system hardening and deployment readiness.
