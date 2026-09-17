@@ -1,9 +1,20 @@
-from __future__ import annotations
-
+import os
 from functools import lru_cache
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+def _default_database_url() -> str:
+    if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+        return "sqlite:////tmp/veridoc.db"
+    return "sqlite:///./data/veridoc.db"
+
+
+def _default_storage_root() -> str:
+    if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+        return "/tmp/storage"
+    return "./storage"
 
 
 class Settings(BaseSettings):
@@ -13,8 +24,8 @@ class Settings(BaseSettings):
     api_port: int = Field(default=8000)
     api_prefix: str = Field(default="/api/v1")
     log_level: str = Field(default="INFO")
-    database_url: str = Field(default="sqlite:///./data/veridoc.db")
-    storage_root: str = Field(default="./storage")
+    database_url: str = Field(default_factory=_default_database_url)
+    storage_root: str = Field(default_factory=_default_storage_root)
     max_upload_size_mb: int = Field(default=20, ge=1, le=500)
     max_page_size: int = Field(default=100, ge=1, le=1000)
     max_image_width: int = Field(default=10000, ge=1, le=50000)

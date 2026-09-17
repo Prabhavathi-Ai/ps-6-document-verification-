@@ -10,7 +10,11 @@ import { DocumentCompareModal } from './components/DocumentCompareModal'
 import { UserProfileSettings } from './components/UserProfileSettings'
 import VerificationHistory from './components/VerificationHistory'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (
+  typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1'
+    ? 'https://backend-lake-mu-tnzwyoez5u.vercel.app'
+    : 'http://localhost:8000'
+)
 const MAX_FILE_SIZE = 20 * 1024 * 1024
 const ACCEPTED_TYPES = ['application/pdf', 'image/png', 'image/jpeg']
 const ACCEPTED_EXTENSIONS = ['.pdf', '.png', '.jpg', '.jpeg']
