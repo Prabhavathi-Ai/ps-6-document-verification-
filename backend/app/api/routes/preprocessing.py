@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import FileResponse
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
 from app.db.database import get_db
-from app.db.models import Document
+from app.db.models import Document, PreprocessingPage
 from app.schemas.preprocessing import PreprocessingPageResponse, PreprocessingResponse
 from app.services.preprocessing import PreprocessingError, preprocess_document
 from app.storage.service import StorageError, StorageService
@@ -52,3 +53,31 @@ def preprocess(document_id: str, database: Session = Depends(get_db)) -> Preproc
             for page in pages
         ],
     )
+
+
+@router.get("/{document_id}/pages/{page_number}/image")
+def get_page_image(
+    document_id: str,
+    page_number: int,
+    database: Session = Depends(get_db),
+) -> FileResponse:
+    document = database.scalar(select(Document).where(Document.document_id == document_id))
+    if document is None:
+        raise HTTPException(status_code=404, detail={"code": "DOCUMENT_NOT_FOUND", "message": "Document not found."})
+    page = database.scalar(
+        select(PreprocessingPage)
+        .where(
+            PreprocessingPage.document_id == document.id,
+            PreprocessingPage.page_number == page_number,
+        )
+    )
+    if page is None:
+        raise HTTPException(status_code=404, detail={"code": "PAGE_NOT_FOUND", "message": "Page not found."})
+    storage = StorageService(get_settings().storage_root)
+    if not storage.exists(page.storage_path):
+        raise HTTPException(status_code=404, detail={"code": "PAGE_IMAGE_NOT_FOUND", "message": "Page image file not found."})
+    return FileResponse(
+        path=storage.get(page.storage_path),
+        media_type="image/png",
+    )
+

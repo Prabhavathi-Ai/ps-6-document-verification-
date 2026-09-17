@@ -23,6 +23,12 @@ class Settings(BaseSettings):
     max_analysis_width: int = Field(default=2400, ge=1, le=10000)
     max_analysis_height: int = Field(default=2400, ge=1, le=10000)
     max_pdf_pages: int = Field(default=20, ge=1, le=1000)
+    ocr_enabled: bool = Field(default=True)
+    ocr_language: str = Field(default="en")
+    ocr_use_gpu: bool = Field(default=False)
+    ocr_model_dir: str | None = Field(default=None)
+    ocr_min_confidence: float = Field(default=0.0, ge=0.0, le=1.0)
+    ocr_max_text_length: int = Field(default=100_000, ge=1_000, le=10_000_000)
     allowed_extensions: list[str] = Field(default_factory=lambda: [".pdf", ".png", ".jpg", ".jpeg"])
     allowed_mime_types: list[str] = Field(
         default_factory=lambda: ["application/pdf", "image/png", "image/jpeg"]
